@@ -52,7 +52,8 @@ static TaskHandle_t Test2_Task_Handle = NULL;/* KEY任务句柄 */
 /*
  * 当我们在写应用程序的时候，可能需要用到一些全局变量。
  */
- 
+
+
 /******************************* 宏定义 ************************************/
 /*
  * 当我们在写应用程序的时候，可能需要用到一些宏定义。
@@ -124,9 +125,8 @@ static void AppTaskCreate(void)
   printf("实验中使用TCP协议传输数据，电脑作为TCP Server，开发板作为TCP Client\n\n");
   
   printf("本例程的IP地址均在User/arch/sys_arch.h文件中修改\n\n");
-    
-  printf("本例程参考<<LwIP应用实战开发指南>>第15章 使用 NETCONN 接口编程\n\n");
   
+  printf("本例程参考<<LwIP应用实战开发指南>>第16章 使用 Socket 接口编程\n\n");
   
   taskENTER_CRITICAL();           //进入临界区
 
@@ -138,7 +138,7 @@ static void AppTaskCreate(void)
                         (UBaseType_t    )1,	    /* 任务的优先级 */
                         (TaskHandle_t*  )&Test1_Task_Handle);/* 任务控制块指针 */
   if(pdPASS == xReturn)
-    PRINT_DEBUG("Create Test1_Task sucess...\r\n");
+    printf("Create Test1_Task sucess...\r\n");
   
   /* 创建Test2_Task任务 */
   xReturn = xTaskCreate((TaskFunction_t )Test2_Task,  /* 任务入口函数 */
@@ -148,7 +148,7 @@ static void AppTaskCreate(void)
                         (UBaseType_t    )2, /* 任务的优先级 */
                         (TaskHandle_t*  )&Test2_Task_Handle);/* 任务控制块指针 */ 
   if(pdPASS == xReturn)
-    PRINT_DEBUG("Create Test2_Task sucess...\n\n");
+    printf("Create Test2_Task sucess...\n\n");
   
   vTaskDelete(AppTaskCreate_Handle); //删除AppTaskCreate任务
   

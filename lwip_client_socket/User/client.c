@@ -35,12 +35,16 @@
 
 #include "lwip/sys.h"
 #include "lwip/api.h"
+#include "lwip/sockets.h"
 
+
+#define IP_ADDR        "192.168.0.181"
 
 static void client(void *thread_param)
 {
-  struct netconn *conn;
-  int ret;
+  int sock = -1;
+  struct sockaddr_in client_addr;
+  
   ip4_addr_t ipaddr;
   
   uint8_t send_buf[]= "This is a TCP Client test...\n";
@@ -52,35 +56,43 @@ static void client(void *thread_param)
   
   printf("修改对应的宏定义:DEST_IP_ADDR0,DEST_IP_ADDR1,DEST_IP_ADDR2,DEST_IP_ADDR3,DEST_PORT\n\n");
   
+  IP4_ADDR(&ipaddr,DEST_IP_ADDR0,DEST_IP_ADDR1,DEST_IP_ADDR2,DEST_IP_ADDR3);
   while(1)
   {
-    conn = netconn_new(NETCONN_TCP);
-    if (conn == NULL)
+    sock = socket(AF_INET, SOCK_STREAM, 0);
+    if (sock < 0)
     {
-      PRINT_DEBUG("create conn failed!\n");
+      printf("Socket error\n");
       vTaskDelay(10);
       continue;
-    }
-    
-    IP4_ADDR(&ipaddr,DEST_IP_ADDR0,DEST_IP_ADDR1,DEST_IP_ADDR2,DEST_IP_ADDR3);
+    } 
 
-    ret = netconn_connect(conn,&ipaddr,DEST_PORT);
-    if (ret == -1)
+    client_addr.sin_family = AF_INET;      
+    client_addr.sin_port = htons(DEST_PORT);   
+    client_addr.sin_addr.s_addr = ipaddr.addr;
+    memset(&(client_addr.sin_zero), 0, sizeof(client_addr.sin_zero));    
+
+    if (connect(sock, 
+               (struct sockaddr *)&client_addr, 
+                sizeof(struct sockaddr)) == -1) 
     {
-        PRINT_DEBUG("Connect failed!\n");
-        netconn_close(conn);
+        printf("Connect failed!\n");
+        closesocket(sock);
         vTaskDelay(10);
         continue;
-    }
-
-    PRINT_DEBUG("Connect to server successful!\n");
-     
+    }                                           
+    
+    printf("Connect to server successful!\n");
+    
     while (1)
     {
-      ret = netconn_write(conn,send_buf,sizeof(send_buf),0);
+      if(write(sock,send_buf,sizeof(send_buf)) < 0)
+        break;
    
       vTaskDelay(1000);
     }
+    
+    closesocket(sock);
   }
 
 }
