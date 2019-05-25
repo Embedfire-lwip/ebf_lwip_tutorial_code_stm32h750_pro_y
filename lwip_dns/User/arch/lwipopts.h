@@ -45,7 +45,6 @@
 #define LWIP_TIMERS                     !NO_SYS        // 使用lwip内部提供的定时功能
 #define LWIP_TIMERS_CUSTOM              !LWIP_TIMERS  //　用户提供定时功能
 
-#define LWIP_RAND                      rand
 
 /*********************************************************************************************************
 ** Core locking
@@ -189,11 +188,31 @@ a lot of data that needs to be copied, this should be set high. */
 #define LWIP_ALTCP                      0
 #define LWIP_ALTCP_TLS                  0
 
+/*
+   ----------------------------------
+   ---------- DNS options -----------
+   ----------------------------------
+*/
+#define LWIP_DNS               1
+
+
+#define LWIP_IGMP         1
+
+/** DNS server IP address */
+#ifndef DNS_SERVER_ADDRESS
+#define DNS_SERVER_ADDRESS(ipaddr)        (ip4_addr_set_u32(ipaddr, ipaddr_addr("208.67.222.222"))) /* resolver1.opendns.com */
+#endif
+
+#ifdef LWIP_IGMP
+#include <stdlib.h>
+#define LWIP_RAND                  rand
+#endif
+
 /* ---------- DHCP options ---------- */
 /* Define LWIP_DHCP to 1 if you want DHCP configuration of
    interfaces. DHCP is not implemented in lwIP 0.5.1, however, so
    turning this on does currently not work. */
-#define LWIP_DHCP               1
+#define LWIP_DHCP               0
 
 
 /* ---------- UDP options ---------- */

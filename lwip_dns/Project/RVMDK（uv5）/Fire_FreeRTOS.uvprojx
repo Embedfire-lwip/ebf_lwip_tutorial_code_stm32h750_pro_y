@@ -828,9 +828,9 @@
               <FilePath>..\..\User\LAN8720A\LAN8720a.c</FilePath>
             </File>
             <File>
-              <FileName>dhcp.c</FileName>
+              <FileName>dns.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\User\dhcp.c</FilePath>
+              <FilePath>..\..\User\dns.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1963,9 +1963,9 @@
               <FilePath>..\..\User\LAN8720A\LAN8720a.c</FilePath>
             </File>
             <File>
-              <FileName>dhcp.c</FileName>
+              <FileName>dns.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\User\dhcp.c</FilePath>
+              <FilePath>..\..\User\dns.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3098,9 +3098,9 @@
               <FilePath>..\..\User\LAN8720A\LAN8720a.c</FilePath>
             </File>
             <File>
-              <FileName>dhcp.c</FileName>
+              <FileName>dns.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\User\dhcp.c</FilePath>
+              <FilePath>..\..\User\dns.c</FilePath>
             </File>
           </Files>
         </Group>

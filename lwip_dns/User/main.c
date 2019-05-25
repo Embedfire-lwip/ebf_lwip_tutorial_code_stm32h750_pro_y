@@ -26,8 +26,7 @@
 #include "task.h"
 #include "queue.h"
 
-#include "dhcp.h"
-
+#include "dns.h"
 /**************************** 任务句柄 ********************************/
 /* 
  * 任务句柄是一个指针，用于指向一个任务，当任务创建好之后，它就具有了一个任务句柄
@@ -89,8 +88,6 @@ int main(void)
   /* 开发板硬件初始化 */
   BSP_Init();
 
-//  tcpecho_init();
-  
   /* 创建AppTaskCreate任务 */
   xReturn = xTaskCreate((TaskFunction_t )AppTaskCreate,  /* 任务入口函数 */
                         (const char*    )"AppTaskCreate",/* 任务名字 */
@@ -119,17 +116,18 @@ static void AppTaskCreate(void)
   BaseType_t xReturn = pdPASS;/* 定义一个创建信息返回值，默认为pdPASS */
   
   TCPIP_Init();
-  dhcp_netconn_init();
+  app_dns_init();
   
-  printf("本例程演示开发板动态获取IP地址,再演示开发板发送数据到服务器\n\n");
+  printf("本例程演示开发板使用dns功能解析域名\n\n");
   
   printf("网络连接模型如下：\n\t 电脑<--网线-->路由<--网线-->开发板\n\n");
   
-  printf("实验中使用TCP协议传输数据，电脑作为TCP Server，开发板作为TCP Client\n\n");
+  printf("实验中使用TCP协议传输数据，电脑作为TCP Client ，开发板作为TCP Server\n\n");
   
   printf("本例程的IP地址均在User/arch/sys_arch.h文件中修改\n\n");
-  
-  printf("本例程在书上并未写入,无参考资料!\n\n");
+    
+  printf("本例程未写入<<LwIP应用实战开发指南>>书中，无参考\n\n");
+   
   
   taskENTER_CRITICAL();           //进入临界区
 
