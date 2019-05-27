@@ -24,7 +24,7 @@
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"
-
+#include "./mpu/bsp_mpu.h" 
 
 static void SystemClock_Config(void);
 static void GPIO_CLK_Init(void);
@@ -33,20 +33,23 @@ static void MPU_Config(void);
 
 void BSP_Init(void)
 {
+  
   /* 对ETH使用的内存开启保护*/
-  MPU_Config(); 
+  MPU_Config(); //wb模式
+  
+//  Board_MPU_Config(2 , MPU_Normal_WB, 0x90000000, MPU_REGION_SIZE_32MB);
+  Board_MPU_Config(3 , MPU_Normal_WB, 0x24000000, MPU_REGION_SIZE_512KB);  
   
   CPU_CACHE_Enable();
 
+  
   HAL_Init();   
 
   GPIO_CLK_Init();
   
-  //将Cache设置write-through方式
-  SCB->CACR|=1<<2;
   
   SystemClock_Config();
-  
+
   LED_GPIO_Config(); 
   /*初始化USART 配置模式为 115200 8-N-1，中断接收*/
   DEBUG_USART_Config();
@@ -205,13 +208,13 @@ static void MPU_Config(void)
 
   HAL_MPU_ConfigRegion(&MPU_InitStruct);
 
-  /* Configure the MPU attributes as Cacheable write through 
+  /* Configure the MPU attributes as Cacheable  Write-back 
      for LwIP RAM heap which contains the Tx buffers */
   MPU_InitStruct.Enable = MPU_REGION_ENABLE;
   MPU_InitStruct.BaseAddress = 0x30044000;
   MPU_InitStruct.Size = MPU_REGION_SIZE_16KB;
   MPU_InitStruct.AccessPermission = MPU_REGION_FULL_ACCESS;
-  MPU_InitStruct.IsBufferable = MPU_ACCESS_NOT_BUFFERABLE;
+  MPU_InitStruct.IsBufferable = MPU_ACCESS_BUFFERABLE;
   MPU_InitStruct.IsCacheable = MPU_ACCESS_CACHEABLE;
   MPU_InitStruct.IsShareable = MPU_ACCESS_NOT_SHAREABLE;
   MPU_InitStruct.Number = MPU_REGION_NUMBER1;
