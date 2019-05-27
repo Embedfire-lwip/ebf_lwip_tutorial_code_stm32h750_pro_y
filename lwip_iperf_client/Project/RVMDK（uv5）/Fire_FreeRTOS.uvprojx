@@ -828,14 +828,14 @@
               <FilePath>..\..\User\LAN8720A\LAN8720a.c</FilePath>
             </File>
             <File>
-              <FileName>iperf.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\User\iperf.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_mpu.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\mpu\bsp_mpu.c</FilePath>
+            </File>
+            <File>
+              <FileName>iperf_client.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\iperf_client.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1164,7 +1164,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>..\..\Output\</OutputDirectory>
-          <OutputName>Fire_FreeRTOS</OutputName>
+          <OutputName>Fire_H7_ExtFlash</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
@@ -1475,7 +1475,7 @@
             </VariousControls>
           </Aads>
           <LDads>
-            <umfTarg>1</umfTarg>
+            <umfTarg>0</umfTarg>
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
             <noStLib>0</noStLib>
@@ -1484,7 +1484,7 @@
             <TextAddressRange>0x08000000</TextAddressRange>
             <DataAddressRange>0x20000000</DataAddressRange>
             <pXoBase></pXoBase>
-            <ScatterFile>..\..\Output\Fire_FreeRTOS.sct</ScatterFile>
+            <ScatterFile>..\..\Output\Fire_H7_ExtFlash.sct</ScatterFile>
             <IncludeLibs></IncludeLibs>
             <IncludeLibsPath></IncludeLibsPath>
             <Misc></Misc>
@@ -2012,14 +2012,14 @@
               <FilePath>..\..\User\LAN8720A\LAN8720a.c</FilePath>
             </File>
             <File>
-              <FileName>iperf.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\User\iperf.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_mpu.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\mpu\bsp_mpu.c</FilePath>
+            </File>
+            <File>
+              <FileName>iperf_client.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\iperf_client.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2762,7 +2762,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>..\..\Output\</OutputDirectory>
-          <OutputName>Fire_FreeRTOS</OutputName>
+          <OutputName>Fire_H7_ExtFlash_Single</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
@@ -3073,7 +3073,7 @@
             </VariousControls>
           </Aads>
           <LDads>
-            <umfTarg>1</umfTarg>
+            <umfTarg>0</umfTarg>
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
             <noStLib>0</noStLib>
@@ -3592,14 +3592,14 @@
               <FilePath>..\..\User\LAN8720A\LAN8720a.c</FilePath>
             </File>
             <File>
-              <FileName>iperf.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\User\iperf.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_mpu.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\mpu\bsp_mpu.c</FilePath>
+            </File>
+            <File>
+              <FileName>iperf_client.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\iperf_client.c</FilePath>
             </File>
           </Files>
         </Group>

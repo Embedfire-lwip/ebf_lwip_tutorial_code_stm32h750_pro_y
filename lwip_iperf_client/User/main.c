@@ -21,17 +21,11 @@
 *************************************************************************
 */ 
 #include "main.h"
-#include "./usart/bsp_debug_usart.h"
-#include "./led/bsp_led.h" 
-
 /* FreeRTOS头文件 */
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"
-
-#include "ethernetif.h"
-
-#include "iperf.h"
+#include "iperf_client.h"
 /**************************** 任务句柄 ********************************/
 /* 
  * 任务句柄是一个指针，用于指向一个任务，当任务创建好之后，它就具有了一个任务句柄
@@ -92,7 +86,7 @@ int main(void)
   
   /* 开发板硬件初始化 */
   BSP_Init();
-//  Netif_Config();
+
   /* 创建AppTaskCreate任务 */
   xReturn = xTaskCreate((TaskFunction_t )AppTaskCreate,  /* 任务入口函数 */
                         (const char*    )"AppTaskCreate",/* 任务名字 */
@@ -119,22 +113,22 @@ int main(void)
 static void AppTaskCreate(void)
 {
   BaseType_t xReturn = pdPASS;/* 定义一个创建信息返回值，默认为pdPASS */
-//  Netif_Config();
+ 
   TCPIP_Init();
-   
-  printf("本例程对使用jperf软件对开发板进行测试接收速度\n\n");
+
+  iperf_client_init();
+  
+  printf("本例程对使用jperf软件对开发板进行测试发送速度\n\n");
   
   printf("网络连接模型如下：\n\t 电脑<--网线-->路由<--网线-->开发板\n\n");
   
-  printf("实验中使用TCP协议传输数据，电脑作为TCP Client ，开发板作为TCP Server\n\n");
+  printf("实验中使用TCP协议传输数据，电脑作为TCP Server ，开发板作为TCP Client\n\n");
   
   printf("本例程的IP地址均在User/arch/sys_arch.h文件中修改\n\n");
     
   printf("本例程参考<<LwIP应用实战开发指南>>第18章 使用 JPerf 工具测试网速\n\n");
    
-  printf("打开jperf软件，输入开发板的IP地址与端口号，然后开始测速\n\n");  
-  
-  iperf_server(NULL);
+  printf("打开jperf软件，电脑端选择Server,选择对应的端口号,然后开始测速\n\n");  
   
   taskENTER_CRITICAL();           //进入临界区
 
@@ -175,7 +169,6 @@ static void Test1_Task(void* parameter)
 {	
   while (1)
   {
-    
     LED1_TOGGLE;
 //    PRINT_DEBUG("LED1_TOGGLE\n");
     vTaskDelay(1000);/* 延时1000个tick */
@@ -188,12 +181,11 @@ static void Test1_Task(void* parameter)
   * @ 参数    ：   
   * @ 返回值  ： 无
   ********************************************************************/
-extern struct netif gnetif;
 static void Test2_Task(void* parameter)
 {	 
   while (1)
   {
-//    LED2_TOGGLE;
+    LED2_TOGGLE;
 //    PRINT_DEBUG("LED2_TOGGLE\n");
     vTaskDelay(2000);/* 延时2000个tick */
   }
