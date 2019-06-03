@@ -46,7 +46,7 @@ void TCP_Echo_Init(void)
   pcb = tcp_new();	  
   
   /* 绑定TCP控制块 */
-  tcp_bind(pcb, IP_ADDR_ANY, TCP_ECHO_PORT);       
+  tcp_bind(pcb, IP_ADDR_ANY, 5001);       
 
 
   /* 进入监听状态 */
